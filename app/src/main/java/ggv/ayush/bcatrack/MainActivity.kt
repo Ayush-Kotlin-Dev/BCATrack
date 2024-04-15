@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ggv.ayush.bcatrack.screen.CourseSelectionScreen
 import ggv.ayush.bcatrack.screen.home.MainPage
 import ggv.ayush.bcatrack.screen.welcome.WelcomeScreen
 import ggv.ayush.bcatrack.ui.theme.BCATrackTheme
@@ -42,11 +43,15 @@ class MainActivity : ComponentActivity() {
                         composable(route = "splash") {
                             SplashScreen(navController = navController)
                         }
+                        composable("course"){
+                            CourseSelectionScreen(navController = navController)
+                        }
                         composable(route = "welcome") {
                             WelcomeScreen(navController = navController)
                         }
-                        composable(route = "main") {
-                            MainPage()
+                        composable(route = "main/{course}") { backStackEntry ->
+                            val course = backStackEntry.arguments?.getString("course")
+                            MainPage(course = course?:"")
                         }
                     }
                 }

@@ -50,9 +50,10 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import ggv.ayush.bcatrack.BcaStudents
+import ggv.ayush.bcatrack.BscStudents
 import ggv.ayush.bcatrack.R
 import ggv.ayush.bcatrack.Student
-import ggv.ayush.bcatrack.students
 import ggv.ayush.bcatrack.ui.theme.Purple700
 import kotlinx.coroutines.launch
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
@@ -62,8 +63,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 @RequiresApi(Build.VERSION_CODES.Q)
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
 @Composable
-fun MainPage() {
-    val isDarkTheme = isSystemInDarkTheme()
+fun MainPage( course : String) {
+    val students = when (course) {
+
+        "BCA" -> BcaStudents
+        "BSC" -> BscStudents
+        else -> emptyList()
+    }
     //status bar color
     val systemUiController = rememberSystemUiController()
     systemUiController.setStatusBarColor(
@@ -117,7 +123,7 @@ fun MainPage() {
                 }
             }
 
-            SubmitDialog(showDialog)
+            SubmitDialog(showDialog , course = course)
 
 
         }
@@ -149,7 +155,7 @@ fun clearSelectedStudents(students: List<Student>) {
 
 
 @RequiresApi(Build.VERSION_CODES.Q)
-fun generateAndDownloadExcelFile(context: Context, students: List<Student>): Uri {
+fun generateAndDownloadExcelFile(context: Context, students: List<Student> , course : String): Uri {
     val workbook = XSSFWorkbook()
     val sheet = workbook.createSheet("Students")
 
@@ -181,7 +187,7 @@ fun generateAndDownloadExcelFile(context: Context, students: List<Student>): Uri
 
     val resolver = context.contentResolver
     val contentValues = ContentValues().apply {
-        put(MediaStore.MediaColumns.DISPLAY_NAME, "BCA_$formattedDate.xlsx")
+        put(MediaStore.MediaColumns.DISPLAY_NAME, "${course}_$formattedDate.xlsx")
         put(
             MediaStore.MediaColumns.MIME_TYPE,
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"

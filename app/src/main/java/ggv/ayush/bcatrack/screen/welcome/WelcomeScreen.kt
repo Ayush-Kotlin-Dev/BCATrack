@@ -93,7 +93,7 @@ fun WelcomeScreen(
 
         ){
             navController.popBackStack()
-            navController.navigate("main")
+            navController.navigate("course")
             welcomeViewModel.saveOnBoardingState(true)
         }
 

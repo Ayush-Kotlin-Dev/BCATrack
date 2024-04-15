@@ -71,7 +71,7 @@ fun SplashScreen(
         splashAnimationCompleted = true
         navController.popBackStack()
         if (onBoardingCompleted.value) {
-            navController.navigate("main")
+            navController.navigate("course")
         } else {
             navController.navigate("welcome")
         }

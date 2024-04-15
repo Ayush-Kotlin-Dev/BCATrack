@@ -28,14 +28,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import ggv.ayush.bcatrack.students
+import ggv.ayush.bcatrack.BcaStudents
+import ggv.ayush.bcatrack.BscStudents
 import okhttp3.internal.wait
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-fun SubmitDialog(dialogOpen : MutableState<Boolean>,){
+fun SubmitDialog(dialogOpen : MutableState<Boolean>, course: String?){
     val context = LocalContext.current
 
+    val students = when (course) {
+        "BCA" -> BcaStudents
+        "BSC" -> BscStudents
+        else -> emptyList()
+    }
     if(dialogOpen.value){
         //Show dialog
         AlertDialog(
@@ -44,7 +50,7 @@ fun SubmitDialog(dialogOpen : MutableState<Boolean>,){
             },
             confirmButton = {
                 Button(onClick = {
-                    val fileUri = generateAndDownloadExcelFile(context, students)
+                    val fileUri = generateAndDownloadExcelFile(context, students , course!!)
                     shareFile(context, fileUri, "students.xlsx")
                     clearSelectedStudents(students)
                     dialogOpen.value = false
@@ -58,8 +64,8 @@ fun SubmitDialog(dialogOpen : MutableState<Boolean>,){
                 }
             },
             //text style should be bold
-            title = { Text(text = "Confirm Submission" , style = TextStyle(fontWeight = FontWeight.Bold)  )   },
-            text = { Text("Are you sure you want to submit?") },
+            title = { Text(text = "Confirm Submission" , style = TextStyle(fontWeight = FontWeight.Bold)   , color = Color.Black)   },
+            text = { Text("Are you sure you want to submit?"   , color = Color.Black) },
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.White)

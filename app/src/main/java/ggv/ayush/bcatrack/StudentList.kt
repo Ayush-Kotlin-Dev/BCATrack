@@ -2,7 +2,7 @@ package ggv.ayush.bcatrack
 
 //list of students with  name and rollNo
 
-val students = listOf(
+val BcaStudents = listOf(
     Student("ABHISHEK PAUL", 1),
     Student("ADITYA KUMAR SINGH", 2),
     Student("AKASH SHARMA", 3),
@@ -55,3 +55,7 @@ val students = listOf(
     Student("VAIBHAV KHARE", 50),
     Student("VARUN KAIWART", 51)
 )
+
+val BscStudents = List(75) { index ->
+    Student("Student ${index + 1}", index + 1)
+}
