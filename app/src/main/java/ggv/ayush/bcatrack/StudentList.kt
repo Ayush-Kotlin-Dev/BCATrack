@@ -1,7 +1,5 @@
 package ggv.ayush.bcatrack
 
-import ggv.ayush.Student
-
 //list of students with  name and rollNo
 
 val students = listOf(

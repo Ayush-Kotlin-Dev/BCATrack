@@ -25,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import ggv.ayush.bcatrack.R
 import ggv.ayush.bcatrack.ui.theme.Purple500
 import ggv.ayush.bcatrack.ui.theme.Purple700
@@ -35,6 +36,15 @@ fun SplashScreen(
     navController: NavController,
     splashViewModel: SplashViewModel = hiltViewModel()
 ) {
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setStatusBarColor(
+        color = if (isSystemInDarkTheme()) Color.Black else Purple700
+    )
+    //status bar content color
+    systemUiController.setSystemBarsColor(
+        color = if (isSystemInDarkTheme()) Purple700 else Purple700
+    )
+
     val onBoardingCompleted = splashViewModel.onBoardingCompleted.collectAsState()
     val degrees = remember {
         androidx.compose.animation.core.Animatable(0f)
@@ -54,7 +64,7 @@ fun SplashScreen(
 
         logoPosition.animateTo(
             targetValue = -350f,  // Adjust this value as needed
-            animationSpec = tween(400, easing  = Easing { fraction ->
+            animationSpec = tween(400, easing = Easing { fraction ->
                 LinearEasing.transform(fraction)
             })
         )
@@ -67,28 +77,14 @@ fun SplashScreen(
         }
 
     }
-    Splash(degrees.value , logoPosition.value)
+    Splash(degrees.value, logoPosition.value)
 
 }
 
 @Composable
-fun Splash(degrees : Float ,  logoPosition: Float) {
-
-    if(isSystemInDarkTheme()){
-        Box(modifier = Modifier
-            .background(Color.Black)
-            .fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ){
-            Image(
-                modifier = Modifier.rotate(degrees).offset(y = Dp(logoPosition)),
-                painter = painterResource(id = R.drawable.explore),
-                contentDescription = null
-            )
-
-        }
-    }else{
-        Box(modifier = Modifier
+fun Splash(degrees: Float, logoPosition: Float) {
+    Box(
+        modifier = Modifier
             .background(
                 Brush.verticalGradient(
                     listOf(Purple700, Purple500),
@@ -97,16 +93,16 @@ fun Splash(degrees : Float ,  logoPosition: Float) {
                 )
             )
             .fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ){
-            Image(
-                modifier = Modifier.rotate(degrees).offset(y = Dp(logoPosition)),
-                painter = painterResource(id = R.drawable.explore),
-                contentDescription = null
-            )
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            modifier = Modifier
+                .rotate(degrees)
+                .offset(y = Dp(logoPosition)),
+            painter = painterResource(id = R.drawable.explore),
+            contentDescription = null
+        )
 
-        }
     }
-
-
 }
+

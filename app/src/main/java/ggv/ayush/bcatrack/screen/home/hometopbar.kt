@@ -1,5 +1,7 @@
 package ggv.ayush.bcatrack.screen.home
 
+import androidx.compose.animation.Animatable
+import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -16,6 +18,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -31,23 +34,10 @@ import ggv.ayush.bcatrack.ui.theme.Purple500
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeTopBar(
-    logoPosition: Float,
-) {
-    val topBarContentColor = if (isSystemInDarkTheme()) Color.LightGray else Color.White
-    val topBarBackgroundColor = if (isSystemInDarkTheme()) Color.Black else Purple500
-    var logoResource by remember { mutableIntStateOf(R.drawable.img_1) }
+fun HomeTopBar() {
+    val topBarContentColor =  Color.White
+    val topBarBackgroundColor = Purple500
 
-    //for infinite rotation of the logo
-    val infiniteTransition = rememberInfiniteTransition()
-    val angle by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        ), label = ""
-    )
     TopAppBar(
         title = {
             Text(
@@ -58,18 +48,14 @@ fun HomeTopBar(
         backgroundColor = topBarBackgroundColor,
         actions = {
             IconButton(onClick = {
-                logoResource =
-                    if (logoResource == R.drawable.img_1) R.drawable.img else R.drawable.img_1
             }
             ) {
                 Icon(
-                    painter = painterResource(id = logoResource),
+                    painter = painterResource(id = R.drawable.attendance),
                     contentDescription = "",
                     modifier = Modifier
-                        .size(70.dp)
-                        .padding(2.dp)
-                        .rotate(angle)
-                        .offset(y = Dp(logoPosition)),
+                        .size(40.dp)
+                        .padding(2.dp),
 
                     tint = if (isSystemInDarkTheme()) Color.White else Color.White
                 )

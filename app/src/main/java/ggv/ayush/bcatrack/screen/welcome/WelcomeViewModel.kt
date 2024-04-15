@@ -1,4 +1,4 @@
-package ggv.ayush.bcatrack.screen
+package ggv.ayush.bcatrack.screen.welcome
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

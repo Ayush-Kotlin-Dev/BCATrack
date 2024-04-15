@@ -140,7 +140,9 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.35.0-alpha")
     // Swipe to Refresh - Accompanist
     implementation ("com.google.accompanist:accompanist-swiperefresh:0.35.0-alpha")
-
+    implementation ("androidx.compose.ui:ui:1.6.5")
+    implementation ("androidx.compose.material:material:1.6.5")
+    implementation ("androidx.compose.ui:ui-tooling:1.6.5")
 
 
 

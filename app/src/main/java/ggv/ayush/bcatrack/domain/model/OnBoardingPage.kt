@@ -12,19 +12,19 @@ sealed class onBoardingPage(
     object FirstPage : onBoardingPage(
         image = R.drawable.greetings ,
         title = "Greetings",
-        description = "NarutoOG is a fan made app for Naruto fans. It provides you with all the information about Naruto and its characters."
+        description = "Hello Learners."
     )
 
     object SecondPage : onBoardingPage(
         image = R.drawable.explore ,
         title = "Explore",
-        description = "You can take Attendance of students"
+        description = "You can take Attendance of students , by clicking on the student Name Row."
     )
 
     object ThirdPage : onBoardingPage(
         image = R.drawable.power ,
         title = "Power",
-        description = "Just Click the Attendance Button and you are good to go."
+        description = "After Marking Attendance , You can tap Submit button to get Excel File ."
     )
 
 }
